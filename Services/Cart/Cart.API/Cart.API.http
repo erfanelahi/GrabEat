@@ -1,6 +1,6 @@
-@Cart.API_HostAddress = http://localhost:5014
+@Cart.API_HostAddress = http://localhost:5002
 
-GET {{Cart.API_HostAddress}}/weatherforecast/
+GET {{Cart.API_HostAddress}}/cart/
 Accept: application/json
 
 ###

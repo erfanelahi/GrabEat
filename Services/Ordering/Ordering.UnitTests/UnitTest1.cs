@@ -1,4 +1,4 @@
-namespace Ordering.UnitTests
+namespace Order.UnitTests
 {
     [TestClass]
     public class UnitTest1
