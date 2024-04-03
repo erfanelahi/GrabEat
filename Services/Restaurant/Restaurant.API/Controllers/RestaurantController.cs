@@ -5,12 +5,8 @@ namespace Restaurant.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RestaurantController : ControllerBase
+    public class RestaurantController(ILogger<RestaurantController> logger) : ControllerBase
     {
-        private readonly ILogger<RestaurantController> _logger;
-        public RestaurantController(ILogger<RestaurantController> logger)
-        {
-            _logger = logger;
-        }
+
     }
 }
