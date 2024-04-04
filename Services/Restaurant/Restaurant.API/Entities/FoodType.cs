@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Restaurant.API.Entities.Common;
+using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.API.Entities
 {
-    public record FoodType
+    internal sealed record FoodType: EntityBase
     {
         [Key]
         public required int Id { get; init; }
