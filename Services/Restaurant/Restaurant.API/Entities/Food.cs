@@ -9,7 +9,8 @@ namespace Restaurant.API.Entities
         public required int Id { get; init; }
         public required string Name { get; init; }
         public required double Price { get; init; }
-        public required virtual FoodType Type { get; init; }
+        public required virtual FoodType FoodType { get; init; }
+        public required virtual Restaurant Restaurant { get; init; }
 
         public string? Description { get; init; }
         public string? ImageUrl { get; init; }

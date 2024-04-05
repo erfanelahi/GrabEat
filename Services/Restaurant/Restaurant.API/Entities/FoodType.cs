@@ -1,4 +1,5 @@
 ﻿using Restaurant.API.Entities.Common;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Restaurant.API.Entities
