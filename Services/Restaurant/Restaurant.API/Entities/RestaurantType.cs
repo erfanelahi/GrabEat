@@ -1,12 +1,9 @@
-﻿using Restaurant.API.Entities.Common;
-using System.ComponentModel.DataAnnotations;
-
-namespace Restaurant.API.Entities
+﻿namespace Restaurant.API.Entities
 {
-    internal sealed record RestaurantType: EntityBase
+    internal record RestaurantType
     {
-        [Key]
         public required int Id { get; init; }
-        public required string Name { get; init; }
+        public required virtual Restaurant Restaurant { get; init; }
+        public required virtual Type Type { get; init; }
     }
 }

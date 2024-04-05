@@ -43,6 +43,20 @@ namespace Restaurant.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Types",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Types", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Foods",
                 columns: table => new
                 {
@@ -50,18 +64,18 @@ namespace Restaurant.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: false),
+                    FoodTypeId = table.Column<int>(type: "int", nullable: false),
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RestaurantId = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Foods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Foods_FoodTypes_TypeId",
-                        column: x => x.TypeId,
+                        name: "FK_Foods_FoodTypes_FoodTypeId",
+                        column: x => x.FoodTypeId,
                         principalTable: "FoodTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -69,7 +83,8 @@ namespace Restaurant.API.Migrations
                         name: "FK_Foods_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,9 +93,8 @@ namespace Restaurant.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RestaurantId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    RestaurantId = table.Column<int>(type: "int", nullable: false),
+                    TypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,8 +103,20 @@ namespace Restaurant.API.Migrations
                         name: "FK_RestaurantTypes_Restaurants_RestaurantId",
                         column: x => x.RestaurantId,
                         principalTable: "Restaurants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RestaurantTypes_Types_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "Types",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Foods_FoodTypeId",
+                table: "Foods",
+                column: "FoodTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Foods_RestaurantId",
@@ -98,14 +124,14 @@ namespace Restaurant.API.Migrations
                 column: "RestaurantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Foods_TypeId",
-                table: "Foods",
-                column: "TypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RestaurantTypes_RestaurantId",
                 table: "RestaurantTypes",
                 column: "RestaurantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RestaurantTypes_TypeId",
+                table: "RestaurantTypes",
+                column: "TypeId");
         }
 
         /// <inheritdoc />
@@ -122,6 +148,9 @@ namespace Restaurant.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Restaurants");
+
+            migrationBuilder.DropTable(
+                name: "Types");
         }
     }
 }
